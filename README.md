@@ -1,4 +1,4 @@
-![yamdb_workflow](https://github.com/warderus/foodgram-project-react/actions/workflows/backend.yml/badge.svg?branch=master)
+[![Django-app workflow](https://github.com/warderus/foodgram-project-react/actions/workflows/foodgram-workflow.yml/badge.svg?branch=master)](https://github.com/warderus/foodgram-project-react/actions/workflows/foodgram-workflow.yml)
 
 
 
