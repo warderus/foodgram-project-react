@@ -65,6 +65,6 @@ sudo docker-compose exec backend python manage.py createsuperuser
 ## Проект доступен по адресу http://62.84.123.220
 ### Суперюзер:
 ```
-onelove123@gyandex.ru
-onelove123
+onelove12@gyandex.ru
+onelove12
 ```
