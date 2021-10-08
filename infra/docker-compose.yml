@@ -6,11 +6,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - backend/.env
+      - .env
     restart: always
 
   backend:
-    image: tmb2508/backend:latest
+    image: warderus/foodgram_backend:latest
     restart: always
     depends_on:
       - db
@@ -21,7 +21,7 @@ services:
     - backend/.env
 
   frontend:
-    image: tmb2508/foodgram-frontend:latest
+    image: warderus/foodgram_frontend:latest
     volumes:
       - ./frontend/:/app/result_build/
     depends_on:
