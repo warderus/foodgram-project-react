@@ -36,7 +36,7 @@ jobs:
         with:
           push: true
           context: ./backend/foodgram/
-          tags: tmb2508/backend:latest
+          tags: warderus/backend:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           stack_file_name: docker-compose.yaml
           script: |
-            sudo docker pull tmb2508/backend:latest
+            sudo docker pull warderus/backend:latest
             sudo docker-compose stop
             sudo docker-compose rm backend
             touch .env
