@@ -1,41 +1,21 @@
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
 
+class User(AbstractUser):
+    email = models.EmailField('Электронная почта', max_length=100, unique=True)
+    first_name = models.CharField('Имя', max_length=150)
+    last_name = models.CharField('Фамилия', max_length=150)
+    password = models.CharField(verbose_name='Пароль')
+    username = models.CharField(
+        'Имя пользователя', max_length=150, unique=True)
 
-class UserManager(UserManager):
-    def _create_user(self, username, email, password=None, **extra_fields):
-        email = self.normalize_email(email)
-        user = self.model(username=email, email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(
-            self,
-            username=None,
-            email=None,
-            password=None,
-            **extra_fields
-            ):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(username, email, password, **extra_fields)
-
-
-class User(SimpleEmailConfirmationUserMixin, AbstractUser):
-    username = models.CharField(max_length=150, unique=True, db_index=True)
-    email = models.EmailField(unique=True, db_index=True, max_length=254)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-
-    objects = UserManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'username', 'password']
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    def __str__(self):
+        return self.username
