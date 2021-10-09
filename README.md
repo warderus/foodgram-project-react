@@ -62,8 +62,8 @@ sudo docker-compose exec backend python manage.py loaddata fixtures/ingredients.
 sudo docker-compose exec backend python manage.py createsuperuser
 ```
 
-## Проект доступен по адресу http://62.84.123.220
-### Суперюзер:
+## Проект доступен по адресу http://84.201.137.100
+### Юзер:
 ```
 onelove12@gyandex.ru
 onelove12
