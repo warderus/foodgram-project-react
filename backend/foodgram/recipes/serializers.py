@@ -77,17 +77,20 @@ class AddIngredientToRecipeSerializer(serializers.ModelSerializer):
         model = Amount
         fields = ('id', 'name', 'measurement_unit', 'amount')
 
+    def validate_cooking_time(self, data):
+        if data < 1:
+            raise serializers.ValidationError(
+                'Время приготовления не может быть меньше минуты.'
+            )
+        return data
+
 
 class CreateRecipeSerializer(serializers.ModelSerializer):
     ingredients = AddIngredientToRecipeSerializer(many=True)
     tags = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Tag.objects.all())
     image = Base64ImageField()
-    cooking_time = serializers.IntegerField(
-        error_messages={
-            'invalid': 'Время приготовления не может быть меньше 1 минуты.'
-        }
-    )
+    cooking_time = serializers.IntegerField()
 
     class Meta:
         model = Recipe
