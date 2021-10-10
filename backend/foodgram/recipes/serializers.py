@@ -124,6 +124,22 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
 
         return data
 
+    def validate_tags(self, data):
+        tags = self.initial_data.get('tags')
+        tags_set = set()
+        if not tags:
+            raise serializers.ValidationError(
+                'Добавьте хотя бы один тэг')
+        for tag in tags:
+            tags_id = tag.get('id')
+            if tags_id in tags_set:
+                raise serializers.ValidationError(
+                    'Тэг в списке должен быть уникальным'
+                )
+            tags_set.add(tags_id)
+
+        return data
+
     def add_recipe_ingredients(self, ingredients, recipe):
         for ingredient in ingredients:
             ingredient_id = ingredient['id']
